@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:whatsappclone_flutter/pages/call_page.dart';
+import 'package:whatsappclone_flutter/pages/camera_page.dart';
 import 'package:whatsappclone_flutter/pages/chat_page.dart';
+import 'package:whatsappclone_flutter/pages/status_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -72,12 +75,46 @@ class _MyHomePageState extends State<MyHomePage>
       body: TabBarView(
         controller: _controller,
         children: const <Widget>[
-          Text('Camera'),
+          CameraPage(),
           ChatPage(),
-          Text('Status'),
-          Text('Calls'),
+          StatusPage(),
+          CallPage(),
         ],
       ),
+      floatingActionButton: _getFAB(),
     );
+  }
+
+  _getFAB() {
+    if (_controller.index == 1) {
+      return FloatingActionButton(
+        onPressed: () {
+          // ignore: avoid_print
+          print('New Chat');
+        },
+        backgroundColor: const Color.fromRGBO(37, 211, 102, 1),
+        child: const Icon(Icons.message, color: Colors.white),
+      );
+    } else if (_controller.index == 2) {
+      return FloatingActionButton(
+        onPressed: () {
+          // ignore: avoid_print
+          print('New Status');
+        },
+        backgroundColor: const Color.fromRGBO(37, 211, 102, 1),
+        child: const Icon(Icons.camera_alt, color: Colors.white),
+      );
+    } else if (_controller.index == 3) {
+      return FloatingActionButton(
+        onPressed: () {
+          // ignore: avoid_print
+          print('New Call');
+        },
+        backgroundColor: const Color.fromRGBO(37, 211, 102, 1),
+        child: const Icon(Icons.add_call, color: Colors.white),
+      );
+    } else {
+      return null;
+    }
   }
 }

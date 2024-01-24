@@ -24,6 +24,7 @@ class _MessagePageState extends State<MessagePage> {
 
   List<Widget> messageList = [
     Bubble(
+      margin: const BubbleEdges.only(top: 8),
       alignment: Alignment.center,
       color: const Color.fromRGBO(212, 234, 244, 1.0),
       child: const Text('TODAY',
@@ -58,6 +59,7 @@ class _MessagePageState extends State<MessagePage> {
       child: const Text('What is your hobby?'),
     ),
     Bubble(
+      margin: const BubbleEdges.only(top: 8),
       alignment: Alignment.center,
       color: const Color.fromRGBO(212, 234, 244, 1.0),
       child: const Text('YESTERDAY',
@@ -117,9 +119,14 @@ class _MessagePageState extends State<MessagePage> {
     ),
   ];
 
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
     return ListView.builder(
+      controller: _scrollController,
       itemCount: messageList.length,
       itemBuilder: (context, index) {
         return messageList[index];
